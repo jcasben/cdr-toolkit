@@ -1,2 +1,3 @@
 target/* linguist-vendored
-docs/ linguist-vendored
+doc/* linguist-vendored
+docs/* linguist-vendored
