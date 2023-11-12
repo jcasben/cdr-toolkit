@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CustomColor","Custom color structure, it will generate a true color in the result"]]};

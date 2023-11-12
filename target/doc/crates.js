@@ -1,0 +1,1 @@
+window.ALL_CRATES = ["cdr_toolkit","colored","is_terminal","lazy_static","windows_sys","windows_targets","windows_x86_64_msvc"];

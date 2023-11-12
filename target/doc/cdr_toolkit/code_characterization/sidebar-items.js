@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":[["characterization","Calculates the main characterization of a code, including its average length, Kraft’s inequality and efficiency."]]};
