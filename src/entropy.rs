@@ -9,7 +9,7 @@ use crate::parse_user_input_vec;
 ///
 /// # Returns
 /// A f32 number which represents the entropy of that font.
-pub fn calculate_entropy(vector: Vec<f32>) -> f32{
+pub fn calculate_entropy(vector: Vec<f32>) -> f32 {
     let mut entropy: f32 = 0.0;
 
     //Calculate entropy
@@ -26,7 +26,7 @@ pub fn calculate_entropy(vector: Vec<f32>) -> f32{
 pub fn input_calculate_entropy() {
     match parse_user_input_vec("Introduce las probabilidades de los símbolos(separados por comas y sin espacios):") {
         Ok(vector) => {
-            println!("\n{}{}", "H(x) = ".blue(), calculate_entropy(vector).to_string().blue());
+            println!("\n{}{}", "H(x) = ".green(), calculate_entropy(vector).to_string().green());
         },
         Err(e) => eprintln!("\n{}{}", "ERROR: ".red(), e.red())
     }
