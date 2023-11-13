@@ -14,17 +14,19 @@ mod efficiencies;
 /// Entry point of the program. Performs an infinite loop which has a menu to
 /// select the option that we want to do in each iteration.
 fn main() {
-    let tab: String = String::from("   ");
+    const MENU: &str =
+    r#"    ************** CDR TOOLKIT **************
+    *   1 - Entropía                        *
+    *   2 - Caracterización de un código    *
+    *   3 - Eficiencia controles de flujo   *
+    *   s - Salir                           *
+    *****************************************
+    "#;
     loop {
         let mut option = String::new();
         //Print 
         println!("\n\n");
-        println!("************** CDR TOOLKIT **************");
-        println!("*{tab}1 - Entropía                        *");
-        println!("*{tab}2 - Caracterización de un código    *");
-        println!("*{tab}3 - Eficiencia controles de flujo   *");
-        println!("*{tab}s - Salir                           *");
-        println!("*****************************************");
+        println!("{}", MENU);
         print!("\nEscoge que deseas hacer: ");
         io::stdout().flush().unwrap();
         
@@ -34,7 +36,7 @@ fn main() {
 
         match option.as_str().trim() {
             "s" => {
-                println!("\n{}", "Gracias por usar CDR TOOLKIT :)".green().bold());
+                println!("\n{}", "Gracias por usar CDR TOOLKIT :)".black().on_green().bold());
                 exit(0);
             },
             "1" => input_calculate_entropy(),
