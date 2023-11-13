@@ -18,9 +18,10 @@ pub fn characterization(probabilities: Vec<f32>, lengths: Vec<f32>) -> [f32; 3] 
     let mut characteristics: [f32; 3] = [0.0, 0.0, 0.0];
 
     // Calculating average length and Kraft's inequality
-    for i in 0..lengths.len() {
-        characteristics[0] += lengths[i];
-        characteristics[1] += 1.0/2_i32.pow(lengths[i] as u32) as f32;
+    for i in lengths.iter() {
+        let value: f32 = *i;
+        characteristics[0] += value;
+        characteristics[1] += 1.0/2_i32.pow(value as u32) as f32;
     }
     characteristics[0] /= lengths.len() as f32;
 
@@ -34,26 +35,23 @@ pub fn characterization(probabilities: Vec<f32>, lengths: Vec<f32>) -> [f32; 3] 
 /// It prints the characterization of the code or the error if
 /// there was any.
 pub fn input_characterization() {
-    let mut probabilities: Vec<f32> = Vec::new();
-    let mut lengths: Vec<f32> = Vec::new();
-
     // Get the probabilities from the user input. Prints an error if it occurs.
-    match parse_user_input_vec("Introduce las probabilidades de los símbolos(separados por comas y sin espacios):") {
-        Ok(vector) => probabilities = vector,
-        Err(e) => eprintln!("\n{}{}", "ERROR: ".red(), e.red())
-    }
-
-    // If probabilities is empty at this point is because there
-    // was an error during the parsing, so we end the function.
-    if probabilities.is_empty() {
-        return;
-    }
+    let probabilities = match parse_user_input_vec("Introduce las probabilidades de los símbolos(separados por comas y sin espacios):") {
+        Ok(vector) => vector,
+        Err(e) => {
+            eprintln!("\n{}{}", "ERROR: ".red(), e.red());
+            return;
+        }
+    };
 
     // Get the lengths from the user input. Prints an error if it occurs.
-    match parse_user_input_vec("Introduce las longitudes de las palabras código(separados por comas y sin espacios):") {
-        Ok(vector) => lengths = vector,
-        Err(e) => eprintln!("\n{}{}", "ERROR: ".red(), e.red())
-    }
+    let lengths = match parse_user_input_vec("Introduce las longitudes de las palabras código(separados por comas y sin espacios):") {
+        Ok(vector) => vector,
+        Err(e) => {
+            eprintln!("\n{}{}", "ERROR: ".red(), e.red());
+            return;
+        }
+    };
 
     // If probabilities is empty at this point is because there
     // was an error during the parsing. It also checks if the lengths
@@ -63,7 +61,7 @@ pub fn input_characterization() {
     }
 
     let characteristics = characterization(probabilities, lengths);
-    println!("\n{}{}", "Longitud media de palabra código(L) = ".blue(), characteristics[0].to_string().blue());
-    println!("{}{}", "Desigualdad de Kraft(K) = ".blue(), characteristics[1].to_string().blue());
-    println!("{}{}", "Eficiencia(n) = ".blue(), characteristics[2].to_string().blue());
+    println!("\n{}{}", "Longitud media de palabra código(L) = ".green(), characteristics[0].to_string().green());
+    println!("{}{}", "Desigualdad de Kraft(K) = ".green(), characteristics[1].to_string().green());
+    println!("{}{}", "Eficiencia(n) = ".green(), characteristics[2].to_string().green());
 }
