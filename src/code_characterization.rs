@@ -13,7 +13,7 @@ use crate::parse_user_input_vec;
 /// # Returns
 /// A f32 array with length 3 that has the average length at index 0, Kraft's
 /// inequality at index 1 and efficiency at index 2.
-pub fn characterization(probabilities: Vec<f32>, lengths: Vec<f32>) -> [f32; 3] {
+fn characterization(probabilities: Vec<f32>, lengths: Vec<f32>) -> [f32; 3] {
     let entropy: f32 = calculate_entropy(probabilities);
     let mut characteristics: [f32; 3] = [0.0, 0.0, 0.0];
 
