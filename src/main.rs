@@ -58,7 +58,7 @@ fn main() {
 /// input.
 /// * `Err(&str)` - if some error occurred during the parsing.
 /// The Err contains the message of the error.
-pub fn parse_user_input_vec(message: &str) -> Result<Vec<f32>, &str> {
+fn parse_user_input_vec(message: &str) -> Result<Vec<f32>, &str> {
     let mut user_input = String::new();
     print!("\n{}",message.blue());
     io::stdout().flush().unwrap();
