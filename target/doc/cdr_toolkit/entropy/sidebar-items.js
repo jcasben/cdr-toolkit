@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"fn":[["calculate_entropy","Calculates the entropy of a font given the probabilities of its symbols."],["input_calculate_entropy","Takes the user input and calls to calculate_entropy(). It prints the entropy if the process was successful or the error if there was any."]]};
