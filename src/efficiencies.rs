@@ -1,6 +1,7 @@
 use colored::Colorize;
 
 pub mod flow_control;
+pub mod error_control;
 
 /// Calculates the value of a, which formula is tprop/tframe.
 /// It is used for all the efficiency calculations.
