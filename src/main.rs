@@ -80,7 +80,9 @@ fn parse_user_input_vec(message: &str) -> Result<Vec<f32>, &str> {
     })
 }
 
-pub fn parse_user_input(message: &str) -> Result<f32, ParseFloatError> {
+/// Takes the user input and parses it to a single f32 value.
+/// It returns an error if it couldnt parse the user input.
+fn parse_user_input(message: &str) -> Result<f32, ParseFloatError> {
     let mut user_input = String::new();
     print!("\n{}",message.blue());
     io::stdout().flush().unwrap();
