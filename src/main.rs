@@ -4,12 +4,14 @@ use std::process::exit;
 use colored::Colorize;
 
 use crate::code_characterization::input_characterization;
-use crate::efficiencies::flow_control::flow_control_menu;
+use crate::checksum::input_calculate_checksum;
+use crate::efficiencies::{error_correction::error_correction_menu, flow_control::flow_control_menu};
 use crate::entropy::input_calculate_entropy;
 
 mod entropy;
 mod code_characterization;
 mod efficiencies;
+mod checksum;
 
 /// Entry point of the program. Performs an infinite loop which has a menu to
 /// select the option that we want to do in each iteration.
@@ -19,6 +21,8 @@ fn main() {
     *   1 - Entropía                        *
     *   2 - Caracterización de un código    *
     *   3 - Eficiencia controles de flujo   *
+    *   4 - Eficiencia controles de errores *
+    *   5 - Checksums                       *
     *   s - Salir                           *
     *****************************************
     "#;
@@ -42,7 +46,9 @@ fn main() {
             "1" => input_calculate_entropy(),
             "2" => input_characterization(),
             "3" => flow_control_menu(),
-            _ => eprintln!("\n{}", "ERROR: La opción escogida no existe dentro de las posibles".red()),
+            "4" => error_correction_menu(),
+            "5" => input_calculate_checksum(),
+             _ => eprintln!("\n{}", "ERROR: La opción escogida no existe dentro de las posibles".red()),
         }
     }
 }
@@ -82,6 +88,13 @@ fn parse_user_input_vec(message: &str) -> Result<Vec<f32>, &str> {
 
 /// Takes the user input and parses it to a single f32 value.
 /// It returns an error if it couldnt parse the user input.
+///
+/// # Arguments
+/// * `message` - The message to be shown to the user.
+///
+/// # Returns
+/// * Ok(f32) - if successful.
+/// * Err(ParseFloatError) - if an error occurred.
 fn parse_user_input(message: &str) -> Result<f32, ParseFloatError> {
     let mut user_input = String::new();
     print!("\n{}",message.blue());
