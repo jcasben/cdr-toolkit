@@ -13,7 +13,7 @@ r#"    ************ CONTROL DE FLUJO ***********
     *   v - Volver                          *
     *****************************************"#;
 
-    'main_loop: loop {
+    'fc_loop: loop {
         let mut option: String = String::new();
         println!("\n\n");
         println!("{}", MENU.bright_cyan());
@@ -25,7 +25,7 @@ r#"    ************ CONTROL DE FLUJO ***********
             .expect("ERROR: no se pudo leer el input del usuario.");
 
         match option.as_str().trim() {
-            "v" => break 'main_loop,
+            "v" => break 'fc_loop,
             "1" => input_fc_stop_and_wait(),
             "2" => input_fc_slippery_window(),
             _ => eprintln!("\n{}", "ERROR: La opción escogida no existe dentro de las posibles".red()),
