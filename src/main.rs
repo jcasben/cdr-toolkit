@@ -5,7 +5,7 @@ use colored::Colorize;
 
 use crate::code_characterization::input_characterization;
 use crate::checksum::input_calculate_checksum;
-use crate::efficiencies::{error_correction::error_correction_menu, flow_control::flow_control_menu};
+use crate::efficiencies::{error_control::error_correction_menu, flow_control::flow_control_menu};
 use crate::entropy::input_calculate_entropy;
 
 mod entropy;
