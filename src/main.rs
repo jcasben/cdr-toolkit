@@ -53,7 +53,7 @@ fn main() {
     }
 }
 
-/// Takes the user input and parses it to a Result<Vec<f32>, &str>.
+/// Takes the user input and parses it to a Result Vec f32, &str.
 ///
 /// # Arguments
 /// * `message` - the message that will be showed to the user.
