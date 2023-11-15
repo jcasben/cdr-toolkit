@@ -120,3 +120,14 @@ pub fn input_fc_slippery_window() {
     let efficiency = fc_slippery_window(tprop, tframe, k);
     println!("{}{}", "Eficiencia Ventana Deslizante = ".blue(), efficiency.to_string().blue());
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn fc_stop_and_wait_test() {
+        let tprop: f32 = 4672.89;
+        let tframe: f32 = 78.4;
+
+        assert_eq!(super::fc_stop_and_wait(tprop, tframe), 0.008319027);
+    }
+}
