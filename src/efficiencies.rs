@@ -11,3 +11,13 @@ fn calculate_a(tprop: f32, tframe: f32) -> f32 {
 
     a
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn calculate_a_test() {
+        let tprop: f32 = 4672.89;
+        let tframe: f32 = 78.4;
+        assert_eq!(59.603188, super::calculate_a(tprop, tframe));
+    }
+}
