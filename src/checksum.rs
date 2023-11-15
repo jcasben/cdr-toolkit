@@ -5,11 +5,12 @@ use colored::Colorize;
 ///
 /// # Arguments
 /// * `values` - a vector that holds the values for the
-/// checksum.
+/// checksum in hexadecimal.
+/// * `num_of_bits` - num of bits that will be represented.
 ///
 /// # Returns
 /// * The result of the checksum.
-fn calculate_checksum(values: Vec<String>) -> String {
+fn calculate_checksum(values: Vec<String>, num_of_bits: usize) -> String {
     let mut result: i64 = 0;
 
     for i in values.iter() {
@@ -25,7 +26,7 @@ fn calculate_checksum(values: Vec<String>) -> String {
 
     result = !result;
     let hex_string = format!("{:X}", result);
-    let mut truncated_hex_string = hex_string.chars().rev().take(16/4).collect::<String>();
+    let mut truncated_hex_string = hex_string.chars().rev().take(num_of_bits/4).collect::<String>();
     truncated_hex_string = truncated_hex_string.chars().rev().collect::<String>();
 
     truncated_hex_string
@@ -47,6 +48,19 @@ pub fn input_calculate_checksum() {
         }
     };
 
+    let mut user_input = String::new();
+    print!("{}", "Introduce la cantidad de bits de las palabras: ".blue());
+    io::stdout().flush().unwrap();
+    io::stdin().read_line(&mut user_input).expect("ERROR: no se pudo leer el input del usuario.");
+
+    let num_of_bits: usize = match user_input.trim().parse::<usize>() {
+        Ok(num) => num,
+        Err(err) => {
+            eprintln!("\n{}{}", "ERROR: ".red(), err.to_string().red());
+            return;
+        }
+    };
+
     let mut values: Vec<String> = Vec::with_capacity(num_of_elements as usize);
     let mut i = 0;
     while i < num_of_elements {
@@ -59,7 +73,7 @@ pub fn input_calculate_checksum() {
         i += 1;
     }
 
-    println!("\n{}{}", "Valor del checksum(hexadecimal) = ".green(), calculate_checksum(values));
+    println!("\n{}{}", "Valor del checksum(hexadecimal) = ".green(), calculate_checksum(values, num_of_bits));
 }
 
 #[cfg(test)]
@@ -67,6 +81,6 @@ mod tests {
     #[test]
     fn calculate_checksum_test() {
         let values = vec!["0001".to_owned(), "F203".to_owned(), "F4F5".to_owned(), "F6F7".to_owned()];
-        assert_eq!("220F".to_owned(), super::calculate_checksum(values));
+        assert_eq!("220F".to_owned(), super::calculate_checksum(values, 16));
     }
 }
