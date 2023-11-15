@@ -200,3 +200,35 @@ pub fn input_ec_selective_reject() {
     let efficiency = ec_selective_reject(tprop, tframe, p, n);
     println!("\n{}{}", "Eficiencia Selective Reject = ".green(), efficiency.to_string().green());
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn ec_stop_and_wait_test() {
+        let tprop: f32 = 750.0;
+        let tframe: f32 = 500.0;
+        let p = 0.03921;
+
+        assert_eq!(0.2401975, super::ec_stop_and_wait(tprop, tframe, p));
+    }
+
+    #[test]
+    fn ec_go_back_n_test() {
+        let tprop: f32 = 4672.89;
+        let tframe: f32 = 78.4;
+        let p: f32 = 0.0078093;
+        let n: u16 = 7;
+
+        assert_eq!(0.51384394, super::ec_go_back_n(tprop, tframe, p, n));
+    }
+
+    #[test]
+    fn ec_selective_reject_test() {
+        let tprop: f32 = 4672.89;
+        let tframe: f32 = 78.4;
+        let p: f32 = 0.0078093;
+        let n: u16 = 7;
+
+        assert_eq!(0.51384394, super::ec_selective_reject(tprop, tframe, p, n));
+    }
+}
