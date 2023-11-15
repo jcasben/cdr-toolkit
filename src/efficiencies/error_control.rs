@@ -90,9 +90,9 @@ pub fn input_ec_stop_and_wait() {
 ///
 /// # Returns
 /// The value for the efficiency of this mechanism.
-fn ec_go_back_n(tprop: f32, tframe: f32, p: f32, k: u16) -> f32 {
+fn ec_go_back_n(tprop: f32, tframe: f32, p: f32, k: u32) -> f32 {
     let a: f32 = calculate_a(tprop, tframe);
-    let n = 2i32.pow(k as u32) - 1;
+    let n = 2i32.pow(k) - 1;
     if n as f32 >= 2.0 * a + 1.0 {
         return (1.0 - p) / (1.0 + 2.0 * a * p);
     }
@@ -128,8 +128,8 @@ pub fn input_ec_go_back_n() {
         }
     };
 
-    let k = match parse_user_input("Introduce el valor para n(2^k - 1): ") {
-        Ok(value) => value as u16,
+    let k = match parse_user_input("Introduce el valor para k: ") {
+        Ok(value) => value as u32,
         Err(err) => {
             eprintln!("\n{}{}", "ERROR: ".red(), err.to_string().red());
             return;
@@ -150,11 +150,11 @@ pub fn input_ec_go_back_n() {
 ///
 /// # Returns
 /// The value for the efficiency of this mechanism.
-fn ec_selective_reject(tprop: f32, tframe: f32, p: f32, k: u16) -> f32 {
+fn ec_selective_reject(tprop: f32, tframe: f32, p: f32, k: u32) -> f32 {
     let a: f32 = calculate_a(tprop, tframe);
-    let n = 2i32.pow(k as u32 - 1);
+    let n = 2i32.pow(k - 1);
 
-    if n as f32 >= 2.0 * a + 1.0  {
+    if n as f32 >= 2.0 * a + 1.0 {
         return 1.0 - p;
     }
 
@@ -189,15 +189,15 @@ pub fn input_ec_selective_reject() {
         }
     };
 
-    let n = match parse_user_input("Introduce el valor para n(2^(k - 1)): ") {
-        Ok(value) => value as u16,
+    let k = match parse_user_input("Introduce el valor para k: ") {
+        Ok(value) => value as u32,
         Err(err) => {
             eprintln!("\n{}{}", "ERROR: ".red(), err.to_string().red());
             return;
         }
     };
 
-    let efficiency = ec_selective_reject(tprop, tframe, p, n);
+    let efficiency = ec_selective_reject(tprop, tframe, p, k);
     println!("\n{}{}", "Eficiencia Selective Reject = ".green(), efficiency.to_string().green());
 }
 
@@ -217,9 +217,9 @@ mod tests {
         let tprop: f32 = 4672.89;
         let tframe: f32 = 78.4;
         let p: f32 = 0.0078093;
-        let n: u16 = 7;
+        let k: u32 = 7;
 
-        assert_eq!(0.51384394, super::ec_go_back_n(tprop, tframe, p, n));
+        assert_eq!(0.51384394, super::ec_go_back_n(tprop, tframe, p, k));
     }
 
     #[test]
@@ -227,8 +227,8 @@ mod tests {
         let tprop: f32 = 4672.89;
         let tframe: f32 = 78.4;
         let p: f32 = 0.0078093;
-        let n: u16 = 7;
+        let k: u32 = 7;
 
-        assert_eq!(0.51384394, super::ec_selective_reject(tprop, tframe, p, n));
+        assert_eq!(0.5282599, super::ec_selective_reject(tprop, tframe, p, k));
     }
 }
