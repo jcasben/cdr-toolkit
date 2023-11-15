@@ -86,12 +86,13 @@ pub fn input_ec_stop_and_wait() {
 /// * `tprop` - the value of the relation d/vprop.
 /// * `tfrane` - the value of the relation L/R.
 /// * `p` - the value for p = pretr = pframe = 1 - (1 - BER)^L
-/// * `n` - the size of the window(2^k - 1).
+/// * `k` - the size of the window(2^k - 1).
 ///
 /// # Returns
 /// The value for the efficiency of this mechanism.
-fn ec_go_back_n(tprop: f32, tframe: f32, p: f32, n: u16) -> f32 {
+fn ec_go_back_n(tprop: f32, tframe: f32, p: f32, k: u16) -> f32 {
     let a: f32 = calculate_a(tprop, tframe);
+    let n = 2i32.pow(k as u32) - 1;
     if n as f32 >= 2.0 * a + 1.0 {
         return (1.0 - p) / (1.0 + 2.0 * a * p);
     }
@@ -127,7 +128,7 @@ pub fn input_ec_go_back_n() {
         }
     };
 
-    let n = match parse_user_input("Introduce el valor para n(2^k - 1): ") {
+    let k = match parse_user_input("Introduce el valor para n(2^k - 1): ") {
         Ok(value) => value as u16,
         Err(err) => {
             eprintln!("\n{}{}", "ERROR: ".red(), err.to_string().red());
@@ -135,7 +136,7 @@ pub fn input_ec_go_back_n() {
         }
     };
 
-    let efficiency = ec_go_back_n(tprop, tframe, p, n);
+    let efficiency = ec_go_back_n(tprop, tframe, p, k);
     println!("\n{}{}", "Eficiencia Go-back-N = ".green(), efficiency.to_string().green());
 }
 
@@ -145,18 +146,19 @@ pub fn input_ec_go_back_n() {
 /// * `tprop` - the value of the relation d/vprop.
 /// * `tfrane` - the value of the relation L/R.
 /// * `p` - the value for p = pretr = pframe = 1 - (1 - BER)^L
-/// * `n` - the size of the window(2^(k-1)).
+/// * `k` - the size of the window(2^(k-1)).
 ///
 /// # Returns
 /// The value for the efficiency of this mechanism.
-fn ec_selective_reject(tprop: f32, tframe: f32, p: f32, n: u16) -> f32 {
+fn ec_selective_reject(tprop: f32, tframe: f32, p: f32, k: u16) -> f32 {
     let a: f32 = calculate_a(tprop, tframe);
+    let n = 2i32.pow(k as u32 - 1);
 
     if n as f32 >= 2.0 * a + 1.0  {
         return 1.0 - p;
     }
 
-    (n as f32 * (1.0 - p)) / ((2.0 * a + 1.0) * (1.0 - p + n as f32 * p))
+    (n as f32 * (1.0 - p)) / (2.0 * a + 1.0)
 }
 
 /// Takes the user input for the required values and
