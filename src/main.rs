@@ -38,7 +38,7 @@ fn main() {
             .read_line(&mut option)
             .expect("ERROR: no se pudo leer el input del usuario.");
 
-        match option.as_str().trim() {
+        match option.to_lowercase().as_str().trim() {
             "s" => {
                 println!("\n{}", "Gracias por usar CDR TOOLKIT :)".black().on_green().bold());
                 exit(0);
