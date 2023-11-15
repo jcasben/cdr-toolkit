@@ -74,13 +74,14 @@ pub fn input_fc_stop_and_wait() {
 /// # Arguments
 /// * `tprop` - the value of the relation d/vprop.
 /// * `tframe` - the value of the relation L/R.
-/// * `n` - the size of the window.
+/// * `k` - the size of the window.
 ///
 /// # Returns
 /// The value for the efficiency of this mechanism.
-fn fc_slippery_window(tprop: f32, tframe: f32, n: u16) -> f32  {
+fn fc_slippery_window(tprop: f32, tframe: f32, k: u32) -> f32 {
     let a: f32 = calculate_a(tprop, tframe);
-
+    let n = 2i32.pow(k) - 1;
+        
     if n as f32 >= (2.0 * a + 1.0) {
         return 1.0
     }
@@ -108,14 +109,14 @@ pub fn input_fc_slippery_window() {
         }
     };
 
-    let n = match parse_user_input("Introduce el valor para N: ") {
-        Ok(value) => value as u16,
+    let k = match parse_user_input("Introduce el valor para k: ") {
+        Ok(value) => value as u32,
         Err(err) => {
             eprintln!("\n{}{}", "ERROR: ".red(), err.to_string().red());
             return;
         }
     };
 
-    let efficiency = fc_slippery_window(tprop, tframe, n);
+    let efficiency = fc_slippery_window(tprop, tframe, k);
     println!("{}{}", "Eficiencia Ventana Deslizante = ".blue(), efficiency.to_string().blue());
 }
