@@ -17,20 +17,19 @@ mod checksum;
 /// select the option that we want to do in each iteration.
 fn main() {
     const MENU: &str =
-    r#"    ************** CDR TOOLKIT **************
-    *   1 - Entropía                        *
-    *   2 - Caracterización de un código    *
-    *   3 - Eficiencia controles de flujo   *
-    *   4 - Eficiencia controles de errores *
-    *   5 - Checksums                       *
-    *   s - Salir                           *
-    *****************************************
-    "#;
+    r#"************** CDR TOOLKIT **************
+*   1 - Entropía                        *
+*   2 - Caracterización de un código    *
+*   3 - Eficiencia controles de flujo   *
+*   4 - Eficiencia controles de errores *
+*   5 - Checksums                       *
+*   s - Salir                           *
+*****************************************"#;
+
     loop {
         let mut option = String::new();
-        //Print 
-        println!("\n\n");
-        println!("{}", MENU);
+        //Print
+        println!("\n{}", MENU);
         print!("\nEscoge que deseas hacer: ");
         io::stdout().flush().unwrap();
         

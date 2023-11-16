@@ -7,12 +7,12 @@ use crate::parse_user_input;
 /// we want to calculate.
 pub fn error_correction_menu() {
     const MENU: &str =
-    r#"    *********** CORRECCIÓN ERRORES **********
-    *   1 - Stop & Wait                     *
-    *   2 - Go Back N                       *
-    *   3 - Selective Reject                *
-    *   v - Volver                          *
-    *****************************************"#;
+    r#"*********** CORRECCIÓN ERRORES **********
+*   1 - Stop & Wait                     *
+*   2 - Go Back N                       *
+*   3 - Selective Reject                *
+*   v - Volver                          *
+*****************************************"#;
 
     'ec_loop: loop {
         let mut option: String = String::new();

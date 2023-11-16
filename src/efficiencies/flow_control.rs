@@ -7,11 +7,11 @@ use crate::parse_user_input;
 /// we want to calculate.
 pub fn flow_control_menu() {
     const MENU: &str =
-r#"    ************ CONTROL DE FLUJO ***********
-    *   1 - Stop & Wait                     *
-    *   2 - Ventana Deslizante              *
-    *   v - Volver                          *
-    *****************************************"#;
+r#"************ CONTROL DE FLUJO ***********
+*   1 - Stop & Wait                     *
+*   2 - Ventana Deslizante              *
+*   v - Volver                          *
+*****************************************"#;
 
     'fc_loop: loop {
         let mut option: String = String::new();
