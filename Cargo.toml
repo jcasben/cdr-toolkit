@@ -2,7 +2,21 @@
 name = "cdr_toolkit"
 version = "0.1.0"
 edition = "2021"
-
+include = [
+    "src/**/*",
+    "Cargo.toml",
+    "README.md",
+    "LICENSE"
+]
+homepage = "https://github.com/jcasben/cdr_toolkit"
+description = "Toolkit for simple calculations related to Data Comunication and Networks (only available in Spanish temporary)"
+repository = "https://github.com/jcasben/cdr_toolkit"
+keywords = [
+    "cli",
+    "data-comunication",
+    "networks"
+]
+license = "MIT"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
