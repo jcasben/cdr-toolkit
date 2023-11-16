@@ -17,8 +17,9 @@ necesitan en la asignatura:
 Usar CDR Toolkit es tan fácil como descargar el ejecutable, abrir una terminal donde tengas
 descargado ese ejecutable y ejecutar el siguiente comando:
 
+**En Windows**
 ```
-./cdr_toolkit
+cdr_toolkit.exe
 ```
 
 Una vez lo hayas ejecutado, se te mostrará un menú con opciones en el que ya puedes elegir el
