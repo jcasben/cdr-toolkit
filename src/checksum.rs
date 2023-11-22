@@ -25,8 +25,8 @@ fn calculate_checksum(values: Vec<String>, num_of_bits: usize) -> String {
     }
 
     result = !result;
-    let hex_string = format!("{:X}", result);
-    let mut truncated_hex_string = hex_string.chars().rev().take(num_of_bits/4).collect::<String>();
+    let hex_string = format!("{:b}", result);
+    let mut truncated_hex_string = hex_string.chars().rev().take(num_of_bits).collect::<String>();
     truncated_hex_string = truncated_hex_string.chars().rev().collect::<String>();
 
     truncated_hex_string
@@ -73,7 +73,7 @@ pub fn input_calculate_checksum() {
         i += 1;
     }
 
-    println!("\n{}{}", "Valor del checksum(hexadecimal) = ".green(), calculate_checksum(values, num_of_bits));
+    println!("\n{}{}", "Valor del checksum(binario) = ".green(), calculate_checksum(values, num_of_bits));
 }
 
 #[cfg(test)]
