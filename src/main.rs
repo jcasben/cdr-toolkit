@@ -69,20 +69,12 @@ fn parse_user_input_vec(message: &str) -> Result<Vec<f32>, &str> {
     io::stdout().flush().unwrap();
     io::stdin().read_line(&mut user_input).expect("ERROR: no se pudo leer el input del usuario.");
 
-    let result: Result<Vec<f32>, &'static str> = user_input
+    let result: Result<Vec<f32>, _> = user_input
         .split(',')
         .map(|s| s.trim().parse::<f32>().map_err(|_| "No se puedo parsear a f32"))
         .collect();
 
-    result.and_then(|v| {
-        if v.iter().any(|&x| x.is_nan()) {
-            Err("Se encontró un elemento que no se pudo parsear.")
-        } else if v.is_empty() {
-            Err("No se encontraron elementos válidos.")
-        } else {
-            Ok(v)
-        }
-    })
+    result
 }
 
 /// Takes the user input and parses it to a single f32 value.

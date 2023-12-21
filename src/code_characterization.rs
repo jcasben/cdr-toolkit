@@ -33,35 +33,18 @@ fn characterization(probabilities: Vec<f32>, lengths: Vec<f32>) -> [f32; 3] {
 /// It prints the characterization of the code or the error if
 /// there was any.
 pub fn input_characterization() {
-    // Get the probabilities from the user input. Prints an error if it occurs.
-    let probabilities = match parse_user_input_vec("Introduce las probabilidades de los símbolos(separados por comas y sin espacios):") {
-        Ok(vector) => vector,
-        Err(e) => {
-            eprintln!("\n{}{}", "ERROR: ".red(), e.red());
-            return;
-        }
-    };
+    let probabilities: Result<Vec<f32>, &str> = parse_user_input_vec("Introduce las probabilidades de los símbolos(separados por comas y sin espacios):");
+    let lengths: Result<Vec<f32>, &str> = parse_user_input_vec("Introduce las longitudes de las palabras código(separados por comas y sin espacios):");
 
-    // Get the lengths from the user input. Prints an error if it occurs.
-    let lengths = match parse_user_input_vec("Introduce las longitudes de las palabras código(separados por comas y sin espacios):") {
-        Ok(vector) => vector,
-        Err(e) => {
-            eprintln!("\n{}{}", "ERROR: ".red(), e.red());
-            return;
-        }
-    };
-
-    // If probabilities is empty at this point is because there
-    // was an error during the parsing. It also checks if the lengths
-    // of both vectors are different. If so, we end the function.
-    if lengths.is_empty() || probabilities.len() != lengths.len(){
+    if probabilities.is_ok() && lengths.is_ok() {
+        let characteristics = characterization(probabilities.unwrap(), lengths.unwrap());
+        println!("\n{}{}", "Longitud media de palabra código(L) = ".green(), characteristics[0].to_string().green());
+        println!("{}{}", "Desigualdad de Kraft(K) = ".green(), characteristics[1].to_string().green());
+        println!("{}{}", "Eficiencia(n) = ".green(), characteristics[2].to_string().green());
+    } else {
+        eprintln!("\n{}{}", "ERROR: ".red(), "Couldn't parse the user input to a numeric vector".red());
         return;
-    }
-
-    let characteristics = characterization(probabilities, lengths);
-    println!("\n{}{}", "Longitud media de palabra código(L) = ".green(), characteristics[0].to_string().green());
-    println!("{}{}", "Desigualdad de Kraft(K) = ".green(), characteristics[1].to_string().green());
-    println!("{}{}", "Eficiencia(n) = ".green(), characteristics[2].to_string().green());
+    } 
 }
 
 #[cfg(test)]

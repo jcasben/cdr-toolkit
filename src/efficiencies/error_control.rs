@@ -1,4 +1,5 @@
 use std::io::{self, Write};
+use std::num::ParseFloatError;
 use colored::Colorize;
 use crate::efficiencies::calculate_a;
 use crate::parse_user_input;
@@ -52,32 +53,17 @@ fn ec_stop_and_wait(tprop: f32, tframe: f32, p: f32) -> f32 {
 /// to ec_stop_and_wait(). It prints the result if the
 /// process was successful or an error if there was any.
 pub fn input_ec_stop_and_wait() {
-    let tprop = match parse_user_input("Introduce el valor para tprop(d/vprop): ") {
-        Ok(value) => value,
-        Err(err) => {
-            eprintln!("\n{}{}", "ERROR: ".red(), err.to_string().red());
-            return;
-        }
-    };
+    let tprop: Result<f32, ParseFloatError> = parse_user_input("Introduce el valor para tprop(d/vprop): ");
+    let tframe: Result<f32, ParseFloatError> = parse_user_input("Introduce el valor para tframe(L/R): ");
+    let p: Result<f32, ParseFloatError> = parse_user_input("Introduce el valor para p: ");
 
-    let tframe = match parse_user_input("Introduce el valor para tframe(L/R): ") {
-        Ok(value) => value,
-        Err(err) => {
-            eprintln!("\n{}{}", "ERROR: ".red(), err.to_string().red());
-            return;
-        }
-    };
-
-    let p = match parse_user_input("Introduce el valor para p: ") {
-        Ok(value) => value,
-        Err(err) => {
-            eprintln!("\n{}{}", "ERROR: ".red(), err.to_string().red());
-            return;
-        }
-    };
-
-    let efficiency = ec_stop_and_wait(tprop, tframe, p);
-    println!("\n{}{}", "Eficiencia Stop & Wait ARQ = ".green(), efficiency.to_string().green());
+    if tprop.is_ok() && tframe.is_ok() && p.is_ok() {
+        let efficiency = ec_stop_and_wait(tprop.unwrap(), tframe.unwrap(), p.unwrap());
+        println!("\n{}{}", "Eficiencia Stop & Wait ARQ = ".green(), efficiency.to_string().green());
+    } else {
+        eprintln!("\n{}{}", "ERROR: ".red(), "Couldn't parse the user input to a numeric value".red());
+        return;
+    }
 }
 
 /// Calculates the efficiency of the Go-back-N mechanism.
@@ -104,40 +90,18 @@ fn ec_go_back_n(tprop: f32, tframe: f32, p: f32, k: u32) -> f32 {
 /// ec_go_back_n(). It prints the result if the process was
 /// successful or an error if there was any.
 pub fn input_ec_go_back_n() {
-    let tprop = match parse_user_input("Introduce el valor para tprop(d/vprop): ") {
-        Ok(value) => value,
-        Err(err) => {
-            eprintln!("\n{}{}", "ERROR: ".red(), err.to_string().red());
-            return;
-        }
-    };
+    let tprop = parse_user_input("Introduce el valor para tframe(L/R): ");
+    let tframe = parse_user_input("Introduce el valor para tprop(d/vprop): ");
+    let p = parse_user_input("Introduce el valor para p: ");
+    let k = parse_user_input("Introduce el valor para k: ");
 
-    let tframe = match parse_user_input("Introduce el valor para tframe(L/R): ") {
-        Ok(value) => value,
-        Err(err) => {
-            eprintln!("\n{}{}", "ERROR: ".red(), err.to_string().red());
-            return;
-        }
-    };
-
-    let p = match parse_user_input("Introduce el valor para p: ") {
-        Ok(value) => value,
-        Err(err) => {
-            eprintln!("\n{}{}", "ERROR: ".red(), err.to_string().red());
-            return;
-        }
-    };
-
-    let k = match parse_user_input("Introduce el valor para k: ") {
-        Ok(value) => value as u32,
-        Err(err) => {
-            eprintln!("\n{}{}", "ERROR: ".red(), err.to_string().red());
-            return;
-        }
-    };
-
-    let efficiency = ec_go_back_n(tprop, tframe, p, k);
-    println!("\n{}{}", "Eficiencia Go-back-N = ".green(), efficiency.to_string().green());
+    if tprop.is_ok() && tframe.is_ok() && p.is_ok() && k.is_ok() {
+        let efficiency = ec_go_back_n(tprop.unwrap(), tframe.unwrap(), p.unwrap(), k.unwrap() as u32);
+        println!("\n{}{}", "Eficiencia Go-back-N = ".green(), efficiency.to_string().green());
+    } else {
+        eprintln!("\n{}{}", "ERROR: ".red(), "Couldn't parse the user input to a numeric value".red());
+        return;
+    }
 }
 
 /// Calculates the efficiency of the Selective Reject mechanism.
@@ -165,40 +129,18 @@ fn ec_selective_reject(tprop: f32, tframe: f32, p: f32, k: u32) -> f32 {
 /// calls to ec_selective_reject(). It prints the result
 /// if the process was successful or an error if there was any.
 pub fn input_ec_selective_reject() {
-    let tprop = match parse_user_input("Introduce el valor para tprop(d/vprop): ") {
-        Ok(value) => value,
-        Err(err) => {
-            eprintln!("\n{}{}", "ERROR: ".red(), err.to_string().red());
-            return;
-        }
-    };
+    let tprop = parse_user_input("Introduce el valor para tframe(L/R): ");
+    let tframe = parse_user_input("Introduce el valor para tprop(d/vprop): ");
+    let p = parse_user_input("Introduce el valor para p: ");
+    let k = parse_user_input("Introduce el valor para k: ");
 
-    let tframe = match parse_user_input("Introduce el valor para tframe(L/R): ") {
-        Ok(value) => value,
-        Err(err) => {
-            eprintln!("\n{}{}", "ERROR: ".red(), err.to_string().red());
-            return;
-        }
-    };
-
-    let p = match parse_user_input("Introduce el valor para p: ") {
-        Ok(value) => value,
-        Err(err) => {
-            eprintln!("\n{}{}", "ERROR: ".red(), err.to_string().red());
-            return;
-        }
-    };
-
-    let k = match parse_user_input("Introduce el valor para k: ") {
-        Ok(value) => value as u32,
-        Err(err) => {
-            eprintln!("\n{}{}", "ERROR: ".red(), err.to_string().red());
-            return;
-        }
-    };
-
-    let efficiency = ec_selective_reject(tprop, tframe, p, k);
-    println!("\n{}{}", "Eficiencia Selective Reject = ".green(), efficiency.to_string().green());
+    if tprop.is_ok() && tframe.is_ok() && p.is_ok() && k.is_ok() {
+        let efficiency = ec_selective_reject(tprop.unwrap(), tframe.unwrap(), p.unwrap(), k.unwrap() as u32);
+        println!("\n{}{}", "Eficiencia Selective Reject = ".green(), efficiency.to_string().green());
+    } else {
+        eprintln!("\n{}{}", "ERROR: ".red(), "Couldn't parse the user input to a numeric value".red());
+        return;
+    }
 }
 
 #[cfg(test)]

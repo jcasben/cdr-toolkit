@@ -1,4 +1,5 @@
 use std::io::{self, Write};
+use std::num::ParseFloatError;
 use colored::Colorize;
 use crate::efficiencies::calculate_a;
 use crate::parse_user_input;
@@ -49,24 +50,16 @@ fn fc_stop_and_wait(tprop: f32, tframe: f32) -> f32 {
 /// to fc_stop_and_wait(). It prints the result if the process
 /// was successful or an error if there was any.
 pub fn input_fc_stop_and_wait() {
-    let tprop: f32 = match parse_user_input("Introduce el valor para tprop(d/vprop): ") {
-        Ok(value) => value,
-        Err(err) => {
-            eprintln!("\n{}{}", "ERROR: ".red(), err.to_string().red());
-            return;
-        }
-    };
+    let tprop: Result<f32, ParseFloatError> = parse_user_input("Introduce el valor para tframe(L/R): ");
+    let tframe: Result<f32, ParseFloatError> = parse_user_input("Introduce el valor para tframe(L/R): ");
 
-    let tframe: f32 = match parse_user_input("Introduce el valor para tframe(L/R): ") {
-        Ok(value) => value,
-        Err(err) => {
-            eprintln!("\n{}{}", "ERROR: ".red(), err.to_string().red());
-            return;
-        }
-    };
-
-    let efficiency = fc_stop_and_wait(tprop, tframe);
-    println!("{}{}", "Eficiencia Stop & Wait = ".blue(), efficiency.to_string().blue());
+    if tprop.is_ok() && tframe.is_ok() {
+        let efficiency = fc_stop_and_wait(tprop.unwrap(), tframe.unwrap());
+        println!("{}{}", "Eficiencia Stop & Wait = ".blue(), efficiency.to_string().blue());
+    } else {
+        eprintln!("\n{}{}", "ERROR: ".red(), "Couldn't parse the user input to a numeric value".red());
+        return;
+    }
 }
 
 /// Calculates the efficiency of a slippery window control flow mechanism.
@@ -93,32 +86,17 @@ fn fc_slippery_window(tprop: f32, tframe: f32, k: u32) -> f32 {
 /// to fc_slippery_window(). It prints the result if the process
 /// was successful or an error if there was any.
 pub fn input_fc_slippery_window() {
-    let tprop: f32 = match parse_user_input("Introduce el valor para tprop(d/vprop): ") {
-        Ok(value) => value,
-        Err(err) => {
-            eprintln!("\n{}{}", "ERROR: ".red(), err.to_string().red());
-            return;
-        }
-    };
+    let tprop = parse_user_input("Introduce el valor para tframe(L/R): ");
+    let tframe = parse_user_input("Introduce el valor para tprop(d/vprop): ");
+    let k = parse_user_input("Introduce el valor para k: ");
 
-    let tframe: f32 = match parse_user_input("Introduce el valor para tframe(L/R): ") {
-        Ok(value) => value,
-        Err(err) => {
-            eprintln!("\n{}{}", "ERROR: ".red(), err.to_string().red());
-            return;
-        }
-    };
-
-    let k = match parse_user_input("Introduce el valor para k: ") {
-        Ok(value) => value as u32,
-        Err(err) => {
-            eprintln!("\n{}{}", "ERROR: ".red(), err.to_string().red());
-            return;
-        }
-    };
-
-    let efficiency = fc_slippery_window(tprop, tframe, k);
-    println!("{}{}", "Eficiencia Ventana Deslizante = ".blue(), efficiency.to_string().blue());
+    if tprop.is_ok() && tframe.is_ok() && k.is_ok() {
+        let efficiency = fc_slippery_window(tprop.unwrap(), tframe.unwrap(), k.unwrap() as u32);
+        println!("{}{}", "Eficiencia Ventana Deslizante = ".blue(), efficiency.to_string().blue());
+    } else {
+        eprintln!("\n{}{}", "ERROR: ".red(), "Couldn't parse the user input to a numeric value".red());
+        return;
+    }
 }
 
 #[cfg(test)]
