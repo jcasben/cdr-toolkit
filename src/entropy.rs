@@ -24,7 +24,7 @@ pub fn calculate_entropy(probabilities: &[f32]) -> f32 {
 /// It prints the entropy if the process was successful or
 /// the error if there was any.
 pub fn input_calculate_entropy() {
-    match parse_user_input_vec("Introduce las probabilidades de los símbolos(separados por comas y sin espacios):") {
+    match parse_user_input_vec("Enter the probabilities of the symbols (commas separated and without spaces):") {
         Ok(vector) => {
             let probabilities = &vector;
             println!("\n{}{}", "H(x) = ".green(), calculate_entropy(probabilities).to_string().green());

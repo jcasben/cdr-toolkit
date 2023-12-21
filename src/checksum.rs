@@ -36,16 +36,16 @@ fn calculate_checksum(values: Vec<String>, num_of_bits: usize) -> String {
 /// and prints the result.
 pub fn input_calculate_checksum() {
     let mut user_input = String::new();
-    print!("{}", "Introduce la cantidad de valores que se van a introducir: ".blue());
+    print!("{}", "Enter the number of values to be entered: ".blue());
     io::stdout().flush().unwrap();
-    io::stdin().read_line(&mut user_input).expect("ERROR: no se pudo leer el input del usuario.");
+    io::stdin().read_line(&mut user_input).expect("ERROR: Failed to read user input.");
 
     let num_of_elements = user_input.trim().parse::<i64>();
 
     let mut user_input = String::new();
-    print!("{}", "Introduce la cantidad de bits de las palabras: ".blue());
+    print!("{}", "Enter the number of bits per word: ".blue());
     io::stdout().flush().unwrap();
-    io::stdin().read_line(&mut user_input).expect("ERROR: no se pudo leer el input del usuario.");
+    io::stdin().read_line(&mut user_input).expect("ERROR: Failed to read user input.");
 
     let num_of_bits: Result<usize, ParseIntError> = user_input.trim().parse::<usize>();
 
@@ -61,15 +61,15 @@ pub fn input_calculate_checksum() {
     let mut i = 0;
     while i < num_of_elements {
         let mut user_input = String::new();
-        print!("\n{}{}: ", "Introduce el valor hexadecimal ".blue(), (i).to_string().blue());
+        print!("\n{}{}: ", "Enter the hexadecimal value ".blue(), (i).to_string().blue());
         io::stdout().flush().unwrap();
-        io::stdin().read_line(&mut user_input).expect("ERROR: no se pudo leer el input del usuario.");
+        io::stdin().read_line(&mut user_input).expect("ERROR: Failed to read user input.");
 
         values.push(user_input);
         i += 1;
     }
 
-    println!("\n{}{}", "Valor del checksum(binario) = ".green(), calculate_checksum(values, num_of_bits));
+    println!("\n{}{}", "Checksum value (binary) = ".green(), calculate_checksum(values, num_of_bits));
 }
 
 #[cfg(test)]

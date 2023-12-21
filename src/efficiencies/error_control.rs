@@ -8,30 +8,30 @@ use crate::parse_user_input;
 /// we want to calculate.
 pub fn error_correction_menu() {
     const MENU: &str =
-    r#"*********** CORRECCIÓN ERRORES **********
+    r#"*********** ERROR CORRECTION **********
 *   1 - Stop & Wait                     *
 *   2 - Go Back N                       *
 *   3 - Selective Reject                *
-*   v - Volver                          *
+*   v - Back                            *
 *****************************************"#;
 
     'ec_loop: loop {
         let mut option: String = String::new();
         println!("\n\n");
         println!("{}", MENU.bright_cyan());
-        print!("\n{}", "Escoge que deseas hacer: ".bright_cyan());
+        print!("\n{}", "Choose what you want to do: ".bright_cyan());
         io::stdout().flush().unwrap();
 
         io::stdin()
             .read_line(&mut option)
-            .expect("ERROR: no se pudo leer el input del usuario.");
+            .expect("ERROR: Failed to read user input.");
 
         match option.as_str().trim() {
             "v" => break 'ec_loop,
             "1" => input_ec_stop_and_wait(),
             "2" => input_ec_go_back_n(),
             "3" => input_ec_selective_reject(),
-            _ => eprintln!("\n{}", "ERROR: La opción escogida no existe dentro de las posibles".red()),
+            _ => eprintln!("\n{}", "ERROR: The chosen option does not exist within the possible options".red()),
         }
     }
 }
@@ -53,13 +53,13 @@ fn ec_stop_and_wait(tprop: f32, tframe: f32, p: f32) -> f32 {
 /// to ec_stop_and_wait(). It prints the result if the
 /// process was successful or an error if there was any.
 pub fn input_ec_stop_and_wait() {
-    let tprop: Result<f32, ParseFloatError> = parse_user_input("Introduce el valor para tprop(d/vprop): ");
-    let tframe: Result<f32, ParseFloatError> = parse_user_input("Introduce el valor para tframe(L/R): ");
-    let p: Result<f32, ParseFloatError> = parse_user_input("Introduce el valor para p: ");
+    let tprop: Result<f32, ParseFloatError> = parse_user_input("Enter the value for tprop(d/vprop): ");
+    let tframe: Result<f32, ParseFloatError> = parse_user_input("Enter the value for tframe(L/R): ");
+    let p: Result<f32, ParseFloatError> = parse_user_input("Enter the value for p: ");
 
     if tprop.is_ok() && tframe.is_ok() && p.is_ok() {
         let efficiency = ec_stop_and_wait(tprop.unwrap(), tframe.unwrap(), p.unwrap());
-        println!("\n{}{}", "Eficiencia Stop & Wait ARQ = ".green(), efficiency.to_string().green());
+        println!("\n{}{}", "Efficiency Stop & Wait ARQ = ".green(), efficiency.to_string().green());
     } else {
         eprintln!("\n{}{}", "ERROR: ".red(), "Couldn't parse the user input to a numeric value".red());
         return;
@@ -90,14 +90,14 @@ fn ec_go_back_n(tprop: f32, tframe: f32, p: f32, k: u32) -> f32 {
 /// ec_go_back_n(). It prints the result if the process was
 /// successful or an error if there was any.
 pub fn input_ec_go_back_n() {
-    let tprop = parse_user_input("Introduce el valor para tframe(L/R): ");
-    let tframe = parse_user_input("Introduce el valor para tprop(d/vprop): ");
-    let p = parse_user_input("Introduce el valor para p: ");
-    let k = parse_user_input("Introduce el valor para k: ");
+    let tprop = parse_user_input("Enter the value for tframe(L/R): ");
+    let tframe = parse_user_input("Enter the value for tprop(d/vprop): ");
+    let p = parse_user_input("Enter the value for p: ");
+    let k = parse_user_input("Enter the value for k: ");
 
     if tprop.is_ok() && tframe.is_ok() && p.is_ok() && k.is_ok() {
         let efficiency = ec_go_back_n(tprop.unwrap(), tframe.unwrap(), p.unwrap(), k.unwrap() as u32);
-        println!("\n{}{}", "Eficiencia Go-back-N = ".green(), efficiency.to_string().green());
+        println!("\n{}{}", "Efficiency Go-back-N = ".green(), efficiency.to_string().green());
     } else {
         eprintln!("\n{}{}", "ERROR: ".red(), "Couldn't parse the user input to a numeric value".red());
         return;
@@ -129,14 +129,14 @@ fn ec_selective_reject(tprop: f32, tframe: f32, p: f32, k: u32) -> f32 {
 /// calls to ec_selective_reject(). It prints the result
 /// if the process was successful or an error if there was any.
 pub fn input_ec_selective_reject() {
-    let tprop = parse_user_input("Introduce el valor para tframe(L/R): ");
-    let tframe = parse_user_input("Introduce el valor para tprop(d/vprop): ");
-    let p = parse_user_input("Introduce el valor para p: ");
-    let k = parse_user_input("Introduce el valor para k: ");
+    let tprop = parse_user_input("Enter the value for tframe(L/R): ");
+    let tframe = parse_user_input("Enter the value for tprop(d/vprop): ");
+    let p = parse_user_input("Enter the value for p: ");
+    let k = parse_user_input("Enter the value for k: ");
 
     if tprop.is_ok() && tframe.is_ok() && p.is_ok() && k.is_ok() {
         let efficiency = ec_selective_reject(tprop.unwrap(), tframe.unwrap(), p.unwrap(), k.unwrap() as u32);
-        println!("\n{}{}", "Eficiencia Selective Reject = ".green(), efficiency.to_string().green());
+        println!("\n{}{}", "Efficiency Selective Reject = ".green(), efficiency.to_string().green());
     } else {
         eprintln!("\n{}{}", "ERROR: ".red(), "Couldn't parse the user input to a numeric value".red());
         return;

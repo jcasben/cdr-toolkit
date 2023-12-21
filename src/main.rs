@@ -18,28 +18,28 @@ mod checksum;
 fn main() {
     const MENU: &str =
     r#"************** CDR TOOLKIT **************
-*   1 - Entropía                        *
-*   2 - Caracterización de un código    *
-*   3 - Eficiencia controles de flujo   *
-*   4 - Eficiencia controles de errores *
+*   1 - Entrophy                        *
+*   2 - Code characterization           *
+*   3 - Flow control efficiency         *
+*   4 - Control error efficiency        *
 *   5 - Checksums                       *
-*   s - Salir                           *
+*   e - Exit                           *
 *****************************************"#;
 
     loop {
         let mut option = String::new();
         //Print
         println!("\n{}", MENU);
-        print!("\nEscoge que deseas hacer: ");
+        print!("\nChoose your option: ");
         io::stdout().flush().unwrap();
         
         io::stdin()
             .read_line(&mut option)
-            .expect("ERROR: no se pudo leer el input del usuario.");
+            .expect("ERROR: couldn't read user input.");
 
         match option.to_lowercase().as_str().trim() {
             "s" => {
-                println!("\n{}", "Gracias por usar CDR TOOLKIT :)".black().on_green().bold());
+                println!("\n{}", "Thanks for using CDR TOOLKIT :)".black().on_green().bold());
                 exit(0);
             },
             "1" => input_calculate_entropy(),
@@ -47,7 +47,7 @@ fn main() {
             "3" => flow_control_menu(),
             "4" => error_correction_menu(),
             "5" => input_calculate_checksum(),
-             _ => eprintln!("\n{}", "ERROR: La opción escogida no existe dentro de las posibles".red()),
+             _ => eprintln!("\n{}", "ERROR: this option doesn't exist".red()),
         }
     }
 }
@@ -67,11 +67,11 @@ fn parse_user_input_vec(message: &str) -> Result<Vec<f32>, &str> {
     let mut user_input = String::new();
     print!("\n{}",message.blue());
     io::stdout().flush().unwrap();
-    io::stdin().read_line(&mut user_input).expect("ERROR: no se pudo leer el input del usuario.");
+    io::stdin().read_line(&mut user_input).expect("ERROR: couldn't read user input.");
 
     let result: Result<Vec<f32>, _> = user_input
         .split(',')
-        .map(|s| s.trim().parse::<f32>().map_err(|_| "No se puedo parsear a f32"))
+        .map(|s| s.trim().parse::<f32>().map_err(|_| "Couldn't parse to f32"))
         .collect();
 
     result
@@ -90,7 +90,7 @@ fn parse_user_input(message: &str) -> Result<f32, ParseFloatError> {
     let mut user_input = String::new();
     print!("\n{}",message.blue());
     io::stdout().flush().unwrap();
-    io::stdin().read_line(&mut user_input).expect("ERROR: no se pudo leer el input del usuario.");
+    io::stdin().read_line(&mut user_input).expect("ERROR: couldn't read user input.");
 
     user_input.trim().parse()
 }

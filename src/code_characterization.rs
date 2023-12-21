@@ -33,14 +33,14 @@ fn characterization(probabilities: Vec<f32>, lengths: Vec<f32>) -> [f32; 3] {
 /// It prints the characterization of the code or the error if
 /// there was any.
 pub fn input_characterization() {
-    let probabilities: Result<Vec<f32>, &str> = parse_user_input_vec("Introduce las probabilidades de los símbolos(separados por comas y sin espacios):");
-    let lengths: Result<Vec<f32>, &str> = parse_user_input_vec("Introduce las longitudes de las palabras código(separados por comas y sin espacios):");
+    let probabilities: Result<Vec<f32>, &str> = parse_user_input_vec("Enter the probabilities of the symbols (comma separated and without spaces):");
+    let lengths: Result<Vec<f32>, &str> = parse_user_input_vec("Enter the lengths of the code words (comma separated and without spaces):");
 
     if probabilities.is_ok() && lengths.is_ok() {
         let characteristics = characterization(probabilities.unwrap(), lengths.unwrap());
-        println!("\n{}{}", "Longitud media de palabra código(L) = ".green(), characteristics[0].to_string().green());
-        println!("{}{}", "Desigualdad de Kraft(K) = ".green(), characteristics[1].to_string().green());
-        println!("{}{}", "Eficiencia(n) = ".green(), characteristics[2].to_string().green());
+        println!("\n{}{}", "Average code word length (L) = ".green(), characteristics[0].to_string().green());
+        println!("{}{}", "Kraft's inequality (K) = ".green(), characteristics[1].to_string().green());
+        println!("{}{}", "Efficiency (n) = ".green(), characteristics[2].to_string().green());
     } else {
         eprintln!("\n{}{}", "ERROR: ".red(), "Couldn't parse the user input to a numeric vector".red());
         return;
