@@ -5,6 +5,8 @@ use colored::Colorize;
 
 use crate::code_characterization::input_characterization;
 use crate::checksum::input_calculate_checksum;
+use crate::efficiencies::ethernet::input_ethernet_efficiency;
+use crate::efficiencies::wifi::input_wifi_efficiency;
 use crate::efficiencies::{error_control::error_correction_menu, flow_control::flow_control_menu};
 use crate::entropy::input_calculate_entropy;
 
@@ -22,13 +24,14 @@ fn main() {
 *   2 - Code characterization           *
 *   3 - Flow control efficiency         *
 *   4 - Control error efficiency        *
-*   5 - Checksums                       *
-*   e - Exit                           *
+*   5 - Ethernet efficiency             *
+*   6 - WiFi efficiency                 *
+*   7 - Checksums                       *
+*   e - Exit                            *
 *****************************************"#;
 
     loop {
         let mut option = String::new();
-        //Print
         println!("\n{}", MENU);
         print!("\nChoose your option: ");
         io::stdout().flush().unwrap();
@@ -38,7 +41,7 @@ fn main() {
             .expect("ERROR: couldn't read user input.");
 
         match option.to_lowercase().as_str().trim() {
-            "s" => {
+            "e" => {
                 println!("\n{}", "Thanks for using CDR TOOLKIT :)".black().on_green().bold());
                 exit(0);
             },
@@ -46,7 +49,9 @@ fn main() {
             "2" => input_characterization(),
             "3" => flow_control_menu(),
             "4" => error_correction_menu(),
-            "5" => input_calculate_checksum(),
+            "5" => input_ethernet_efficiency(),
+            "6" => input_wifi_efficiency(),
+            "7" => input_calculate_checksum(),
              _ => eprintln!("\n{}", "ERROR: this option doesn't exist".red()),
         }
     }
