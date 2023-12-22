@@ -6,7 +6,10 @@ use crate::parse_user_input;
 /// # Arguments
 /// * `N` - number of stations in the network.
 /// * `L` - the length of the frame in bytes.
-/// * `tb` - 512 in Ethernet 10BASE-T and 100BASE-T4, 4096 in Ethernet 1000BASE-T. 
+/// * `tb` - 512 in Ethernet 10BASE-T and 100BASE-T4, 4096 in Ethernet 1000BASE-T.
+/// 
+/// # Returns
+/// The value of the efficiency of the network. 
 fn ethernet_efficiency(n: i32, l: i32, tb: i32) -> f32 {
     let a: f32 = (1.0 - (1.0 / n as f32)).powi(n - 1);
     1.0 / (1.0 + (tb as f32 / l as f32 * 8.0 * a))
