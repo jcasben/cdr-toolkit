@@ -43,7 +43,6 @@ pub fn input_characterization() {
         println!("{}{}", "Efficiency (n) = ".green(), characteristics[2].to_string().green());
     } else {
         eprintln!("\n{}{}", "ERROR: ".red(), "Couldn't parse the user input to a numeric vector".red());
-        return;
     } 
 }
 

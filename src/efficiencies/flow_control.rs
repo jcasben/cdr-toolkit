@@ -95,7 +95,6 @@ pub fn input_fc_slippery_window() {
         println!("{}{}", "Sliding Window Efficiency = ".blue(), efficiency.to_string().blue());
     } else {
         eprintln!("\n{}{}", "ERROR: ".red(), "Couldn't parse the user input to a numeric value".red());
-        return;
     }
 }
 

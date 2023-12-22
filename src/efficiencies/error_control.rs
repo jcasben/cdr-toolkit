@@ -139,7 +139,6 @@ pub fn input_ec_selective_reject() {
         println!("\n{}{}", "Efficiency Selective Reject = ".green(), efficiency.to_string().green());
     } else {
         eprintln!("\n{}{}", "ERROR: ".red(), "Couldn't parse the user input to a numeric value".red());
-        return;
     }
 }
 
