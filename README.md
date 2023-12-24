@@ -75,7 +75,8 @@ $$ \eta_{SW} = \frac{t_{frame}}{t_{frame} + 2 \cdot t_{ptop}} = \frac{1}{1 + 2a}
 
 #### Ventana Deslizante
 
-$$ \eta_{SW} = \frac{N \cdot t_{frame}}{t_{frame} + 2 \cdot t_{ptop}} = \frac{N}{1 + 2a} \text{, si } N \leq 2a + 1 \\ \eta_{SW} = 1 \text{, si } N \geq 2a + 1 $$
+$$ \eta_{SW} = \frac{N \cdot t_{frame}}{t_{frame} + 2 \cdot t_{ptop}} = \frac{N}{1 + 2a} \text{, si } N \leq 2a + 1 \\ $$
+$$\eta_{SW} = 1 \text{, si } N \geq 2a + 1 $$
 
 ### 4. Eficiencias mecanismos de control de errores
 
@@ -85,21 +86,23 @@ $$ a = \frac{t_{prop}}{t_{frame}} = \frac{d \cdot R}{L \cdot v_{prop}} $$
 
 #### Stop & Wait ARQ
 
-- $ N = 1 $
+$ N = 1 $
 
 $$ \eta = \frac{1 - p}{1 + 2a} $$
 
 #### Go Back N
 
-- $ N \leq 2^{k} - 1 $
+$ N \leq 2^{k} - 1 $
 
-$$ \eta = \frac{1 - p}{1 + 2a \cdot p}, N \geq 2a + 1 \\ \\ \eta = \frac{N(1 - p)}{(2a + 1)(1 - p + N \cdot p)}, N < 2a + 1 $$
+$$ \eta = \frac{1 - p}{1 + 2a \cdot p}, N \geq 2a + 1 $$
+$$ \eta = \frac{N(1 - p)}{(2a + 1)(1 - p + N \cdot p)}, N < 2a + 1 $$
 
 #### Rechazo Selectivo
 
-- $ N \leq 2^{k - 1} $
+$ N \leq 2^{k - 1} $
 
-$$ \eta = 1 - p, N \geq 2a + 1 \\ \eta = \frac{N(1 - p)}{2a + 1}, N < 2a + 1  $$
+$$ \eta = 1 - p, N \geq 2a + 1 $$
+$$\eta = \frac{N(1 - p)}{2a + 1}, N < 2a + 1 $$
 
 ### 5. Eficiencia redes Ethernet
 
