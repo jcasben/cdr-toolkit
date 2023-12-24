@@ -9,21 +9,42 @@ necesitan en la asignatura:
 - Caracterización de un código
 - Eficiencias de mecanimos de control de flujo
 - Eficiencias de mecanismos de control de errores
+- Eficiencia de redes Ethernet
+- Eficiencia de redes WiFi
 - Checksums
-- ... (todavía en desarrollo)
+   
+## ¿Como lo puedo usar?
 
-### ¿Como lo puedo usar?
+#### A través del ejecutable
 
-Usar CDR Toolkit es tan fácil como descargar el ejecutable, abrir una terminal donde tengas
-descargado ese ejecutable y ejecutar el siguiente comando:
+Usar CDR Toolkit es tan fácil como descargar el ejecutable, abrir una terminal donde tengas descargado el archivo y ejecutarlo, independientemente de la plataforma en la que te encuentres.
 
-**En Windows**
+#### A través de cargo
+
+Cargo es el administrador de paquetes de Rust, puedes consultar más información sobre él [aquí](https://doc.rust-lang.org/cargo/).
+Para utilizar cdr_toolkit con cargo, podemos instalarlo con el siguiente comando:
+
+```shell
+cargo install cdr_toolkit
 ```
-cdr_toolkit.exe
+
+Una vez instalado, podemos ejecutarlo directamente escribiendo el siguiente comando:
+
+```shell
+cdr_toolkit
 ```
 
-Una vez lo hayas ejecutado, se te mostrará un menú con opciones en el que ya puedes elegir el
-cálculo que desear realizar.
+## Opciones de uso
+
+Una ejecutado el programa, se nos presentará un menú con todas las opciones que podremos elegir:
+
+### 1. Cálculo de Entropía
+
+La primera opción nos permite realizar el cálculo de la Entropía de una fuente a partir de las probabilidades de sus símbolos a través de las siguiente fórmula:
+
+$$ H(X) = \sum_{i=1}^{S} p_i \cdot \log_2 \frac{1}{p_i} $$
+
+donde $S$ representa el tamaño del alfabeto y $p_i$ la probabilidad de cada símbolo. 
 
 ### Advertencia
 
