@@ -71,7 +71,7 @@ $$ a = \frac{t_{prop}}{t_{frame}} = \frac{d \cdot R}{L \cdot v_{prop}} $$
 
 #### Stop & Wait
 
-$$ \eta_{S\&W} = \frac{t_{frame}}{t_{frame} + 2 \cdot t_{ptop}} = \frac{1}{1 + 2a} $$
+$$ \eta_{SW} = \frac{t_{frame}}{t_{frame} + 2 \cdot t_{ptop}} = \frac{1}{1 + 2a} $$
 
 #### Ventana Deslizante
 
