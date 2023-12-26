@@ -9,7 +9,7 @@ include = [
     "LICENSE"
 ]
 homepage = "https://github.com/jcasben/cdr_toolkit"
-description = "Toolkit for simple calculations related to Data Comunication and Networks (only available in Spanish temporary)"
+description = "Toolkit for simple calculations related to Data Comunication and Networks. Made for the course Comunicació de Xarxes i Dades, from UIB."
 repository = "https://github.com/jcasben/cdr_toolkit"
 keywords = [
     "cli",
