@@ -115,7 +115,7 @@ $$ A = \left(1 - \frac{1}{N}\right)^{N - 1} $$
 
 $$ \eta = \frac{1}{1 + \frac{\tau_b}{L \cdot A}} $$
 
-donde $ L $ es el tamaño de las tramas en bits y $ \tau_b $ un valor estandarizado:
+donde $L$ es el tamaño de las tramas en bits y $\tau_b$ un valor estandarizado:
 
 - 512 en Ethernet 10BASE-T y Ethernet 100BASE-T4
 - 4096 en Ethernet 1000BASE-T
