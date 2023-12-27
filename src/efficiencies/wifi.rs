@@ -1,5 +1,5 @@
+use std::io::{self, Write};
 use colored::Colorize;
-use plotters::prelude::*;
 
 use crate::parse_user_input;
 
@@ -20,44 +20,54 @@ const ACK: f32 = 112.0 / 11.0 + PHYH;
 // Equivalent duration of MAC Header + PHY Header
 const TOTALH: f32 = PHYH + MACH;
 
+pub fn wifi_menu() {
+    const MENU: &str =
+    r#"********** WiFi CALCULATIONS **********
+*   1 - WiFi Efficiency                 *
+*   2 - Time to transmit                *
+*   b - Back                            *
+*****************************************"#;
+
+    'wifi_loop: loop {
+        let mut option: String = String::new();
+        println!("\n\n");
+        println!("{}", MENU.bright_cyan());
+        print!("\n{}", "Choose what you want to do: ".bright_cyan());
+        io::stdout().flush().unwrap();
+
+        io::stdin()
+            .read_line(&mut option)
+            .expect("ERROR: Failed to read user input.");
+
+        match option.as_str().trim() {
+            "b" => break 'wifi_loop,
+            "1" => input_wifi_efficiency(),
+            "2" => input_ts(),
+            _ => eprintln!("\n{}", "ERROR: The chosen option does not exist within the possible options".red()),
+        }
+    }
+}
+
 /// Creates a plot of the efficiency of a WiFi network.
 /// # Arguments
 /// * `payload` - the payload size in bits.
 /// * `stations` - the number of stations in the network.
-fn wifi_efficiency(payload: i32, stations: i32) -> Result<(), Box<dyn std::error::Error>> {
-    let root = BitMapBackend::new("plot.png", (640, 480)).into_drawing_area();
-    root.fill(&WHITE)?;
-
-    let mut chart = ChartBuilder::on(&root)
-        .caption("Efficiency of a payload range", ("sans-serif", 30).into_font())
-        .margin(5)
-        .x_label_area_size(30)
-        .y_label_area_size(30)
-        .build_cartesian_2d(0 as f32..(payload + 1000) as f32, 0f32..1f32)?;
-
-    chart.configure_mesh()
-        .x_desc("Payload size (bits)")
-        .y_desc("Efficiency")
-        .axis_desc_style(("sans-serif", 15).into_font())
-        .draw()?;
-
-    let efficiency_values: Vec<(f32, f32)> = (0..payload)
-        .map(|x| (x as f32, efficiency(x as f32, stations)))
-        .collect();
-
-    chart.draw_series(LineSeries::new(efficiency_values, &RED))?;
-
-    Ok(())
-}
-
-/// Calculates the efficiency of a WiFi network.
-fn efficiency(x: f32, sta: i32) -> f32 {
-    (x / 11.0) / (ts(x) - tc(x) + (SIGMA * (1.0 - ptr(x, sta)) / ptr(x, sta) + tc(x)) / ps(x, sta))
+/// 
+/// # Returns
+/// The value of the efficiency of the WiFi network.
+fn wifi_efficiency(payload: f32, stations: i32) -> f32 {
+    (payload / 11.0) / (ts(payload) - tc(payload) + (SIGMA * (1.0 - ptr(payload, stations)) / ptr(payload, stations) + tc(payload)) / ps(payload, stations))
 }
 
 /// Calculates the value of ts, which is the time to send a packet
-fn ts(x: f32) -> f32 {
-    TOTALH + x / 11.0 + SIFS + DELTA + ACK + DIFS + DELTA
+/// in a WiFi network.
+/// # Arguments
+/// * `payload` - the payload size in bits.
+/// 
+/// # Returns
+/// The value of ts.
+fn ts(payload: f32) -> f32 {
+    TOTALH + payload / 11.0 + SIFS + DELTA + ACK + DIFS + DELTA
 }
 
 /// Calculates the value of tc, which is the time to transmit a packet
@@ -81,14 +91,27 @@ fn ps(x: f32, sta: i32) -> f32 {
 }
 
 /// Takes the user input for the required values and calls
+/// ts(). It prints an error if there was any.
+pub fn input_ts() {
+    let payload = parse_user_input("Enter the payload size (in bits): ");
+    if payload.is_ok() {
+        let time_to_send = ts(payload.clone().unwrap());
+        println!("\n{}{}", "Time to send a packet = ".green(), time_to_send.to_string().green());
+    } else {
+        println!("{}{}", "ERROR:".red(), "Couldn't parse the user input".red());
+    }
+}
+
+/// Takes the user input for the required values and calls
 /// wifi_efficiency(). It prints an error if there was any.
 pub fn input_wifi_efficiency() {
     let payload = parse_user_input("Enter the payload size (in bits): ");
     let stations = parse_user_input("Enter the number of stations: ");
 
     if payload.is_ok() && stations.is_ok() {
-        wifi_efficiency(payload.unwrap() as i32, stations.unwrap() as i32).unwrap();
+        let eff = wifi_efficiency(payload.clone().unwrap(), stations.clone().unwrap() as i32);
+        println!("\n{}{}", "WiFi Efficiency = ".green(), eff.to_string().green());
     } else {
-        println!("{}{}", "ERROR:".red(), "Invalid input".red());
+        println!("{}{}", "ERROR:".red(), "Couldn't parse the user input".red());
     }
 }
