@@ -12,7 +12,7 @@ pub fn error_correction_menu() {
 *   1 - Stop & Wait                     *
 *   2 - Go Back N                       *
 *   3 - Selective Reject                *
-*   v - Back                            *
+*   b - Back                            *
 *****************************************"#;
 
     'ec_loop: loop {
@@ -27,7 +27,7 @@ pub fn error_correction_menu() {
             .expect("ERROR: Failed to read user input.");
 
         match option.as_str().trim() {
-            "v" => break 'ec_loop,
+            "b" => break 'ec_loop,
             "1" => input_ec_stop_and_wait(),
             "2" => input_ec_go_back_n(),
             "3" => input_ec_selective_reject(),

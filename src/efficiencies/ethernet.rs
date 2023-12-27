@@ -12,7 +12,7 @@ use crate::parse_user_input;
 /// The value of the efficiency of the network. 
 fn ethernet_efficiency(n: i32, l: i32, tb: i32) -> f32 {
     let a: f32 = (1.0 - (1.0 / n as f32)).powi(n - 1);
-    1.0 / (1.0 + (tb as f32 / l as f32 * 8.0 * a))
+    1.0 / (1.0 + (tb as f32 / (l as f32 * 8.0 * a)))
 }
 
 /// Takes the user input for the required values and calls
@@ -25,7 +25,7 @@ pub fn input_ethernet_efficiency() {
 
     if n.is_ok() && l.is_ok() && tb.is_ok() {
         let efficiency = ethernet_efficiency(n.unwrap() as i32, l.unwrap() as i32, tb.unwrap() as i32);
-        println!("{}{}", "Ethernet Efficiency = ".blue(), efficiency.to_string().blue());
+        println!("{}{}", "Ethernet Efficiency = ".green(), efficiency.to_string().green());
     } else {
         eprintln!("\n{}{}", "ERROR: ".red(), "Couldn't parse the user input to a numeric value".red());
     }
