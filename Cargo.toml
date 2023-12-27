@@ -1,6 +1,6 @@
 [package]
 name = "cdr_toolkit"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 include = [
     "src/**/*",
@@ -21,4 +21,3 @@ license = "MIT"
 
 [dependencies]
 colored = "2.0.4"
-plotters = "0.3.0"
