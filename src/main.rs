@@ -4,7 +4,7 @@ use std::process::exit;
 use colored::Colorize;
 
 use crate::code_characterization::input_characterization;
-use crate::checksum::input_calculate_checksum;
+//use crate::checksum::input_calculate_checksum;
 use crate::efficiencies::ethernet::input_ethernet_efficiency;
 use crate::efficiencies::wifi::wifi_menu;
 use crate::efficiencies::{error_control::error_correction_menu, flow_control::flow_control_menu};
@@ -26,7 +26,6 @@ fn main() {
 *   4 - Control error efficiency        *
 *   5 - Ethernet efficiency             *
 *   6 - WiFi Calculations               *
-*   7 - Checksums                       *
 *   e - Exit                            *
 *****************************************"#;
 
@@ -51,7 +50,7 @@ fn main() {
             "4" => error_correction_menu(),
             "5" => input_ethernet_efficiency(),
             "6" => wifi_menu(),
-            "7" => input_calculate_checksum(),
+            //"7" => input_calculate_checksum(),
              _ => eprintln!("\n{}", "ERROR: this option doesn't exist".red()),
         }
     }

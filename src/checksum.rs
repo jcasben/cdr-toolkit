@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use std::{io::{self, Write}, num::ParseIntError};
 use colored::Colorize;
 
@@ -14,8 +16,15 @@ fn calculate_checksum(values: Vec<String>, num_of_bits: usize) -> String {
     let mut result: i64 = 0;
 
     for i in values.iter() {
-        let x: i64 = match i64::from_str_radix(i.trim(), 16) {
-            Ok(num) => num,
+
+        let x: i64 = match i64::from_str_radix(i.trim(), 2) {
+            Ok(num) => {
+                let mut num = num;
+                num = ones_complement(num);
+                // num = num << (64 - num_of_bits);
+                // num = num >> (64 - num_of_bits);
+                num
+            },
             Err(err) => {
                 eprintln!("\n{}{}", "ERROR: ".red(), err.to_string().red());
                 0
@@ -30,6 +39,32 @@ fn calculate_checksum(values: Vec<String>, num_of_bits: usize) -> String {
     truncated_hex_string = truncated_hex_string.chars().rev().collect::<String>();
 
     truncated_hex_string
+}
+
+fn ones_complement(mut num: i64) -> i64 {
+    let mut cnt = 7;
+    let mut tmp: i64;
+    let mut flg = 0;
+    
+    while cnt >= 0 
+    {
+        tmp = num & (1 << cnt);
+        if tmp > 0
+        {
+            flg=1;
+            num &= !(1<<cnt);
+        }
+        else
+        {
+            if flg==1
+            {
+                num |= 1<<cnt;
+            }
+        }
+        cnt=cnt-1;
+    }
+
+    num
 }
 
 /// Takes the binary user input for all the values of the checksum
@@ -61,7 +96,7 @@ pub fn input_calculate_checksum() {
     let mut i = 0;
     while i < num_of_elements {
         let mut user_input = String::new();
-        print!("\n{}{}: ", "Enter the hexadecimal value ".blue(), (i).to_string().blue());
+        print!("\n{}{}: ", "Enter the binary value ".blue(), (i).to_string().blue());
         io::stdout().flush().unwrap();
         io::stdin().read_line(&mut user_input).expect("ERROR: Failed to read user input.");
 
