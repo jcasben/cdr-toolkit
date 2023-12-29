@@ -124,7 +124,7 @@ donde $L$ es el tamaño de las tramas en bits y $\tau_b$ un valor estandarizado:
 
 Calcula la eficiencia de una red WiFi y la muestra a través de un gráfico. Este se guardará en directorio actual en un archivo con el nombre plot.png.
 
-### 7. Cálculo de checksums
+### 7. Cálculo de checksums (Desactivado)
 
 Calcula un checksum a partir de los números dados. El cálculo se realiza utilizando el método de la suma en complemento a 1.
 
