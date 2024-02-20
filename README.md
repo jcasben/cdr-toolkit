@@ -1,12 +1,11 @@
-# CDR Toolkit
+# CDR Toolkit 
 
-Un toolkit creado para la asignatura Comunicación de Datos y Redes, cursada en la UIB.
+A toolkit created for the course Data Comunication and Networks, from UIB.
 
-Es una potente y rápida CLI que ayuda a realizar los siguientes cálculos básicos que se
-necesitan en la asignatura:
+It is a blazingly fast CLI that helps you to do some basic calculs that are needed in the course:
 
-1. [Entropía](#1-cálculo-de-entropía)
-2. [Caracterización de un código](#2-caracterización-de-un-código)
+1. [Entrophy](#1-cálculo-de-entropía)
+2. [Code characterization](#2-caracterización-de-un-código)
 3. [Eficiencias de mecanimos de control de flujo](#3-eficiencias-mecanismos-de-control-de-flujo)
 4. [Eficiencias de mecanismos de control de errores](#4-eficiencias-mecanismos-de-control-de-errores)
 5. [Eficiencia de redes Ethernet](#5-eficiencia-redes-ethernet)
